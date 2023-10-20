@@ -82,4 +82,11 @@ function splitMax($kri,$v,$bobot){
     }
     return 0;
 }
+function getBobot($a,$b){
+    $u = 0;
+    for($i=$a;$i<=$b;$i++){
+        $u =$u+(1/$i);
+    }
+    return round($u/$b,2);
+}
 ?>
