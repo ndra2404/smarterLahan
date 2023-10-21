@@ -36,6 +36,6 @@ $zip->close();
 // Delete all files from "delete list"
 foreach ($filesToDelete as $file)
 {
-    //unlink($file);
+    unlink($file);
 }
 ?>
