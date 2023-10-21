@@ -19,11 +19,6 @@ foreach ($files as $name => $file)
         }
     }
 }
-// Zip archive will be created only after closing object
-$zip->close();
-
-
-// Delete all files from "delete list"
 foreach ($filesToDelete as $file)
 {
     unlink($file);
