@@ -3,8 +3,10 @@ if(isset($_POST['submit'])){
     
 
     $kriteria = $_POST['kriteriaRank'];
-    foreach($_POST['kriteriaRankNew'] as $key=>$value){
-        array_push($kriteria,$value);
+    if(isset($_POST['kriteriaRankNew'])){
+        foreach($_POST['kriteriaRankNew'] as $key=>$value){
+            array_push($kriteria,$value);
+        }
     }
     $result=array();
     foreach( array_count_values($kriteria) as $key => $val ) {
@@ -26,6 +28,7 @@ if(isset($_POST['submit'])){
         $update = "update kriteria set kriteria='".$_POST['kriteriaName'][$key]."',rangking='$key',ket='".$_POST['kriteriaKet'][$key]."' where id_kriteria='$key'";
         insert($update);
     }
+    if(isset($_POST['kriteriaRankNew'])){
     foreach($_POST['kriteriaRankNew'] as $key=>$value){
         $update = "insert into kriteria(rangking,ket,kriteria) values('".$value."','".$_POST['kriteriaKetNew'][$key]."','".$_POST['kriteriaNameNew'][$key]."')";
         insert($update);
@@ -39,6 +42,7 @@ if(isset($_POST['submit'])){
         insert($alter);
 
     }
+}
     echo "<script>
     new swal({
     icon: 'success',

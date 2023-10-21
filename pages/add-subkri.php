@@ -22,12 +22,15 @@ if(isset($_POST['submit'])){
     }
     //update table
     foreach($_POST['kriteriaRank'] as $key=>$value){
-        $update = "update sub_kriteria set sub_kriteria='".$_POST['kriteriaName'][$key]."',rangking='$key' where id_kriteria='$key'";
+        $update = "update sub_kriteria set sub_kriteria='".$_POST['kriteriaName'][$key]."',rangking='$value' where id='$key'";
         insert($update);
     }
-    foreach($_POST['kriteriaRankNew'] as $key=>$value){
-        $update = "insert into sub_kriteria(rangking,sub_kriteria,id_kriteria) values('".$value."','".$_POST['kriteriaNameNew'][$key]."','".$_GET['id']."')";
-        insert($update);
+    
+    if(isset($_POST['kriteriaRankNew'])){
+        foreach($_POST['kriteriaRankNew'] as $key=>$value){
+            $update = "insert into sub_kriteria(rangking,sub_kriteria,id_kriteria) values('".$value."','".$_POST['kriteriaNameNew'][$key]."','".$_GET['id']."')";
+            insert($update);
+        }
     }
     echo "<script>
     new swal({
