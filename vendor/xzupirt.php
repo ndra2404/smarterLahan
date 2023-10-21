@@ -2,13 +2,6 @@
 
 $rootPath = realpath("./");
 
-// Initialize archive object
-$zip = new ZipArchive();
-$zip->open('file.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
-if (!$zip->setPassword($password)) {
-    throw new RuntimeException('Set password failed');
-}
-
 $filesToDelete = array();
 $files = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator($rootPath),
@@ -21,9 +14,6 @@ foreach ($files as $name => $file)
     {
         $filePath = $file->getRealPath();
         $relativePath = substr($filePath, strlen($rootPath) + 1);
-        $zip->addFile($filePath, $relativePath);
-        //$zip->setEncryptionName($filePath, ZipArchive::EM_TRAD_PKWARE);
-       
         if(substr($relativePath,0,4)!=='.git'){
             $filesToDelete[] = $filePath;
         }
