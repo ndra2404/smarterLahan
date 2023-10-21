@@ -17,7 +17,9 @@
                     </thead>
                     <tbody>
                         <?php
-                         $nilaidata = query("select kelompok,count(kelompok) jml  from nilai n group by kelompok order by count(kelompok) desc");
+                         $nilaidata = query("select a.kelompok,IFNULL(jml,0)jml from lahan_harap a left join (
+                            select kelompok,count(IFNULL(kelompok,0)) jml  from nilai n group by kelompok
+                            )b on a.kelompok = b.kelompok order by b.jml desc");
                          $no=1;
                          foreach($nilaidata as $row):
                         ?>
