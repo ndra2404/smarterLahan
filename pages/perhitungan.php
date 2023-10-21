@@ -1,20 +1,21 @@
 <?php
-    $lahan = query("select * From lahan");
+    $lahan = query2("select * From lahan");
     mysqli_query($conn,"truncate table lahan_transform");
     foreach ($lahan as $row) {
-        $ip = getValueBobot(1,$row->irigasi_pengairan);
-        $ph = getValueBobot(2,$row->ph);
-        $kelembaban = getValueBobot(3,$row->kelembaban);
-        $penyiapan_lahan = getValueBobot(4,$row->penyiapan_lahan);
-        $gambut = getValueBobot(5,$row->gambut);
-        $lereng = getValueBobot(6,$row->lereng);
-        $rotasi_tanaman = getValueBobot(7,$row->rotasi_tanaman);
-        $sql = "insert into lahan_transform(lahan,irigasi_pengairan,ph,kelembaban,penyiapan_lahan,gambut,lereng,rotasi_tanaman)
-        values ('".$row->lahan."','".$ip."','".$ph."','".$kelembaban."','".$penyiapan_lahan."','".$gambut."','".$lereng."','".$rotasi_tanaman."')";
+
+        $sql = "select * from kriteria";
+        $kriterias = query2($sql);
+        $ket=array();
+        $ketvalue=array();
+        foreach($kriterias as $k){
+            array_push($ket,$k['ket']);
+            array_push($ketvalue,getValueBobot($k['id_kriteria'],$row[$k['ket']]));
+        }
+        $sql = "insert into lahan_transform(lahan,".implode(',',$ket).")
+        values ('".$row['lahan']."',".implode(',',$ketvalue).")";
         insert($sql);
     }
-
-    $lahanTran = query("select * From lahan_transform");
+    $lahanTran = query2("select * From lahan_transform");
 ?>
 <div class="col-xl-12">
     <div class="card dz-card" id="bootstrap-table13">                    
@@ -30,13 +31,13 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Lokasi</th>
-                            <th scope="col">PH</th>
-                            <th scope="col">Rotasi tanaman</th>
-                            <th scope="col">Kelembaban (%)</th>
-                            <th scope="col">Lereng</th>
-                            <th scope="col">Irigasi Pengairan</th>
-                            <th scope="col">Penyiapan lahan</th>
-                            <th scope="col">Gambut</th>
+                            <?php
+                                foreach($kriterias as $k){
+                                    ?>
+                                    <th scope="col"><?=$k['ket']?></th>
+                                    <?php
+                                }
+                            ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,14 +47,14 @@
                         ?>
                         <tr>
                             <th><?=$no++?></th>
-                            <td><?=$r->lahan?></td>
-                            <td><?=$r->ph?></td>
-                            <td><?=$r->rotasi_tanaman?></td>
-                            <td><?=$r->kelembaban?></td>
-                            <td><?=$r->lereng?></td>
-                            <td><?=$r->irigasi_pengairan?></td>
-                            <td><?=$r->penyiapan_lahan?></td>
-                            <td><?=$r->gambut?></td>
+                            <td><?=$r['lahan']?></td>
+                            <?php
+                                foreach($kriterias as $k){
+                                    ?>
+                                    <td><?=$r[$k['ket']]?></td>
+                                    <?php
+                                }
+                            ?>
                             
                         </tr>
                         <?php endforeach;?>
@@ -87,13 +88,13 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Lokasi</th>
-                            <th scope="col">PH * (<?php echo $ph?>)</th>
-                            <th scope="col">Rotasi tanaman * (<?php echo $rotasi?>)</th>
-                            <th scope="col">Kelembaban (%) * (<?php echo $kelembaban?>)</th>
-                            <th scope="col">Lereng * (<?php echo $lereng?>)</th>
-                            <th scope="col">Irigasi Pengairan * (<?php echo $iri?>)</th>
-                            <th scope="col">Penyiapan lahan * (<?php echo $lahan?>)</th>
-                            <th scope="col">Gambut * (<?php echo $gambut?>)</th>
+                            <?php
+                                foreach($kriterias as $k){
+                                    ?>
+                                    <th scope="col"><?=$k['kriteria']?>(<?=$k['bobot']?>)</th>
+                                    <?php
+                                }
+                            ?>
                             <th scope="col">Total</th>
                         </tr>
                     </thead>
@@ -103,29 +104,26 @@
                             
                             mysqli_query($conn,"truncate table nilai");
                             foreach($lahanTran as $r):
-                                $hph = round($r->ph*$ph,6);
-                                $hrotasi = round($r->rotasi_tanaman*$rotasi,6);
-                                $hkelembaban = round($r->kelembaban*$kelembaban,6);
-                                $hlereng = round($r->lereng*$lereng,6);
-                                $hlahan = round($r->penyiapan_lahan*$lahan,6);
-                                $hiri = round($r->irigasi_pengairan*$iri,6);
-                                $hgambut = round($r->gambut*$gambut,6);
-
-                                
-                                $total = round($hph+$hrotasi+$hkelembaban+$hlereng+$hlahan+$hiri+$hgambut,6);
-                                $kel = getKelompok($total);
-                                insert("insert into nilai(lahan,nilai,kelompok) values('".$r->lahan."','".$total."','".$kel."')");
+                                //insert("insert into nilai(lahan,nilai,kelompok) values('".$r->lahan."','".$total."','".$kel."')");
                         ?>
                         <tr>
                             <th><?=$no++?></th>
-                            <td><?=$r->lahan ?></td>
-                            <td><?=$r->ph?>*<?=$ph?> = <b><?=$hph?></b></td>
-                            <td><?=$r->rotasi_tanaman?>*<?=$rotasi?> = <b><?=$hrotasi?></b></td>
-                            <td><?=$r->kelembaban?>*<?=$kelembaban?> = <b><?=$hkelembaban?></b></td>
-                            <td><?=$r->lereng?>*<?=$lereng?> = <b><?=$hlereng?></b></td>
-                            <td><?=$r->irigasi_pengairan?>*<?=$iri?> = <b><?=$hiri?></b></td>
-                            <td><?=$r->penyiapan_lahan?>*<?=$lahan?> = <b><?=$hlahan?></b></td>
-                            <td><?=$r->gambut?>*<?=$gambut?> = <b><?=$hgambut?></b></td>
+                            <td><?=$r['lahan'] ?></td>
+                            <?php
+                            $total=0;
+                                foreach($kriterias as $k){
+                                    $c =0;
+                                    $c = $k['bobot']*$r[$k['ket']];
+                                    ?>
+                                    <td><?=$r[$k['ket']]?>*<?=$k['bobot']?>=<strong><?=$c?></strong></td>
+                                    <?php
+                                    $total+=$c;
+                                }
+                                $kel = getKelompok($total);
+                                //insert("insert into nilai_harap(kategori,nilai) values('".$row['kelompok']."','".$total."')");
+                                insert("insert into nilai(lahan,nilai,kelompok) values('".$row['lahan']."','".$total."','".$kel."')");
+                            ?>
+                           
                             <td><span style="color:red"><b><?=$total?></b></span></td>
                         </tr>
                         <?php endforeach;?>
