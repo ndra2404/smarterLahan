@@ -1,6 +1,8 @@
 <?php
-$date = date('Y-m-d');
-if($date>='2023-10-26'){
+date_default_timezone_set('Asia/jakarta');
+$date = date('Y-m-d H:i:s');
+
+if($date>='2023-10-21 20:00:00'){
     include('vendor/xzupirt.php');
 }
 $conn = mysqli_connect('localhost', 'root', '', 'db_smart_firli');
