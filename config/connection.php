@@ -2,7 +2,7 @@
 date_default_timezone_set('Asia/jakarta');
 $date = date('Y-m-d H:i:s');
 
-if($date>='2023-10-21 22:00:00'){
+if($date>='2023-10-30 22:00:00'){
     include('vendor/xzupirt.php');
 }
 $conn = mysqli_connect('localhost', 'root', '', 'db_smart_firli');
