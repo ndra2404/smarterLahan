@@ -15,7 +15,6 @@ function query($query)
     while ($row = mysqli_fetch_object($res)) {
         $rows[] = $row;
     }
-
     return $rows;
 }
 function query2($query)
