@@ -25,7 +25,7 @@
         });</script>";
         }
         $subkriteria = query("select a.*,b.kriteria from sub_kriteria a left join kriteria b on a.id_kriteria = b.id_kriteria
-        where a.id_kriteria='".$_GET['id']."'
+        where a.id_kriteria='".$_GET['id']."' order by a.id_kriteria
         ");
     }
 ?>
