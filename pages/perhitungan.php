@@ -121,7 +121,7 @@
                                 }
                                 $kel = getKelompok($total);
                                 //insert("insert into nilai_harap(kategori,nilai) values('".$row['kelompok']."','".$total."')");
-                                insert("insert into nilai(lahan,nilai,kelompok) values('".$row['lahan']."','".$total."','".$kel."')");
+                                insert("insert into nilai(lahan,nilai,kelompok) values('".$r['lahan']."','".$total."','".$kel."')");
                             ?>
                            
                             <td><span style="color:red"><b><?=$total?></b></span></td>
@@ -188,11 +188,12 @@
                             <th scope="col">Lokasi</th>
                             <th scope="col">Nilai</th>
                             <th scope="col">kategori</th>
+                            <th scope="col">Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                         $nilaidata = query("select * from nilai");
+                         $nilaidata = query("select a.*,keterangan from nilai a left join lahan_harap b on b.kelompok=a.kelompok");
                          $no=1;
                          foreach($nilaidata as $row):
                         ?>
@@ -201,6 +202,7 @@
                             <td><?=$row->lahan?></td>
                             <td><?=$row->nilai?></td>
                             <td><b><?=$row->kelompok?></b></td>
+                            <td><b><?=$row->keterangan?></b></td>
                         </tr>
                         <?php
                         endforeach;

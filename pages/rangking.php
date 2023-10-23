@@ -53,12 +53,13 @@
                             <th scope="col">#</th>
                             <th scope="col">Lokasi</th>
                             <th scope="col">Nilai</th>
-                            <th scope="col">kategori</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                         $nilaidata = query("select * from nilai");
+                         $nilaidata = query("select a.*,keterangan from nilai a left join lahan_harap b on b.kelompok=a.kelompok");
                          $no=1;
                          foreach($nilaidata as $row):
                         ?>
@@ -67,6 +68,7 @@
                             <td><?=$row->lahan?></td>
                             <td><?=$row->nilai?></td>
                             <td><?=$row->kelompok?></td>
+                            <td><?=$row->keterangan?></td>
                         </tr>
                         <?php
                         endforeach;

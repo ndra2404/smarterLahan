@@ -8,7 +8,7 @@ if(isset($_POST['submit'])){
         $kri[]=$row['ket'];
         $val[]="'".$_POST[$row['ket']]."'";
     }
-    $sqlsave = "insert into lahan_harap(kelompok,".implode(',',$kri).") values('".$_POST['kelompok']."',".implode(',',$val).")";
+    $sqlsave = "insert into lahan_harap(kelompok,keterangan,".implode(',',$kri).") values('".$_POST['kelompok']."','".$_POST['keterangan']."',".implode(',',$val).")";
     insert($sqlsave);
     echo "<script>
     new swal({
@@ -29,9 +29,14 @@ if(isset($_POST['submit'])){
         <div class="card-body">
             <form class="finance-hr" action="" method="post">
                 <div class="form-group mb-3">
-                    <label class="text-secondary font-w500">Kelempok
+                    <label class="text-secondary font-w500">Kelompok
                     </label>
                     <input type="text" name="kelompok" class="form-control" placeholder="Kelompok">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="text-secondary font-w500">Keterangan
+                    </label>
+                    <input type="text" name="keterangan" class="form-control" placeholder="Sangat sesuai">
                 </div>
                 <?php
                 $sql = "select * from kriteria";

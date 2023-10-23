@@ -6,7 +6,7 @@ if(isset($_POST['submit'])){
     foreach($kriteria as $row){
         $val[]=$row['ket']."='".$_POST[$row['ket']]."'";
     }
-    $sqlsave = "update lahan_harap set kelompok='".$_POST['kelompok']."',". implode(',',$val)." where id='".$_GET['id']."'";
+    $sqlsave = "update lahan_harap set kelompok='".$_POST['kelompok']."',keterangan='".$_POST['keterangan']."',". implode(',',$val)." where id='".$_GET['id']."'";
     insert($sqlsave);
     echo "<script>
     new swal({
@@ -32,6 +32,11 @@ $data = mysqli_fetch_array($q);
                     <label class="text-secondary font-w500">Kelempok
                     </label>
                     <input type="text" name="kelompok" value="<?=$data['kelompok']?>" class="form-control" placeholder="Kelompok">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="text-secondary font-w500">Keterangan
+                    </label>
+                    <input type="text" name="keterangan" value="<?=$data['keterangan']?>" class="form-control" placeholder="Sangat sesuai">
                 </div>
                 <?php
                 $sql = "select * from kriteria";
