@@ -21,9 +21,11 @@ if(isset($_POST['submit'])){
         })</script>";
     }
     //update table
-    foreach($_POST['kriteriaRank'] as $key=>$value){
-        $update = "update sub_kriteria set sub_kriteria='".$_POST['kriteriaName'][$key]."',rangking='$value' where id='$key'";
-        insert($update);
+    if(isset($_POST['kriteriaRank'])){
+        foreach($_POST['kriteriaRank'] as $key=>$value){
+            $update = "update sub_kriteria set sub_kriteria='".$_POST['kriteriaName'][$key]."',rangking='$value' where id='$key'";
+            insert($update);
+        }
     }
     
     if(isset($_POST['kriteriaRankNew'])){
