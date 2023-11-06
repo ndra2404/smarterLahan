@@ -12,12 +12,13 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Kelompok</th>
+                            <th scope="col">Keterangan</th>
                             <th scope="col">Jumlah</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                         $nilaidata = query("select a.kelompok,IFNULL(jml,0)jml from lahan_harap a left join (
+                         $nilaidata = query("select a.kelompok,a.keterangan,IFNULL(jml,0)jml from lahan_harap a left join (
                             select kelompok,count(IFNULL(kelompok,0)) jml  from nilai n group by kelompok
                             )b on a.kelompok = b.kelompok order by b.jml desc");
                          $no=1;
@@ -26,6 +27,7 @@
                         <tr>
                             <td><?=$no++?></td>
                             <td><?=$row->kelompok?></td>
+                            <td><?=$row->keterangan?></td>
                             <td><?=$row->jml?></td>
                         </tr>
                         <?php

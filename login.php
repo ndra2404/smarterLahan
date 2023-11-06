@@ -55,7 +55,7 @@ if(isset($_POST['submit'])){
 				<div class="col-lg-6 col-md-12 col-sm-12 mx-auto align-self-center">
 					<div class="login-form">
 						<div class="text-center">
-							<h3 class="title">Sign In</h3>
+							<h1 class="title">Sign In</h1>
 							<p></p>
 						</div>
 						<form action="" method="post">
@@ -84,7 +84,7 @@ if(isset($_POST['submit'])){
 						<div class="login-content">
 							<a href="index.html"><img src="assets/images/logo_unbin.png" width="120" class="mb-3 logo-dark" alt=""></a>
 							<a href="index.html"><img src="assets/images/logi-white.png" class="mb-3 logo-light" alt=""></a>
-							<p>PENERAPAN METODE SMARTER UNTUK PEMETAAN LAHAN PERTANIAN TANAMAN PADI</p>
+							<h2>PENERAPAN METODE SMARTER UNTUK PEMETAAN LAHAN PERTANIAN TANAMAN PADI</h2>
 						</div>
 						<div class="login-media text-center">
 							<img src="assets/images/login.png" alt="">

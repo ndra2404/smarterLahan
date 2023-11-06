@@ -34,7 +34,7 @@
                             <?php
                                 foreach($kriterias as $k){
                                     ?>
-                                    <th scope="col"><?=$k['ket']?></th>
+                                    <th scope="col"><?=$k['kriteria']?></th>
                                     <?php
                                 }
                             ?>
