@@ -148,18 +148,20 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">kelompok</th>
+                            <th scope="col">Keterangan</th>
                             <th scope="col">Nilai</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                         $nilaidata = query("select * from nilai_harap");
+                         $nilaidata = query("select a.*,b.keterangan from nilai_harap a left join lahan_harap b on a.kategori = b.kelompok");
                          $no=1;
                          foreach($nilaidata as $row):
                         ?>
                         <tr>
                             <td><?=$no++?></td>
                             <td><?=$row->kategori?></td>
+                            <td><?=$row->keterangan?></td>
                             <td><b><?=$row->nilai?></b></td>
                         </tr>
                         <?php
@@ -187,7 +189,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Lokasi</th>
                             <th scope="col">Nilai</th>
-                            <th scope="col">kategori</th>
+                            <th scope="col">Kelompok</th>
                             <th scope="col">Keterangan</th>
                         </tr>
                     </thead>
