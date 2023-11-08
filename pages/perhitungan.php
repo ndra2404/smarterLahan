@@ -178,7 +178,7 @@
     <div class="card dz-card" id="bootstrap-table13">                    
         <div class="card-header flex-wrap d-flex justify-content-between  border-0">
         <h4>
-            NILAI AKHIR TINGKAT KESESUIAN LAHAN 
+            NILAI AKHIR TINGKAT KESESUIAN LAHAN
         </h4>
         </div>
         <div class="card-body pt-0">
